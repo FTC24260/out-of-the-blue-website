@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================================================
+   Design tokens — light-blue "Out of the Blue" theme.
+   Mirrored in tailwind.config.js so they can be used as Tailwind classes too.
+   =========================================================================== */
+:root {
+  --color-sky: #e8f4fb; /* page background / light sections */
+  --color-powder: #bde3f5; /* soft fills, cards */
+  --color-blue: #4fb3e8; /* primary accent / buttons */
+  --color-azure: #2d8fd4; /* primary hover / links */
+  --color-deep: #0f4c81; /* headings / footer / contrast text */
+  --color-ink: #12263a; /* body text */
+  --color-white: #ffffff;
+  --color-cloud: #f7fbfe; /* subtle alt background */
+  --accent-glow: #7fd0ff; /* highlights, focus rings */
+
+  /* Sticky-header offset so smooth-scroll anchors aren't hidden under the navbar. */
+  --header-h: 72px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Anchored sections account for the fixed header height. */
+    scroll-padding-top: var(--header-h);
+  }
+
+  /* Respect users who prefer reduced motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    @apply bg-sky text-ink font-sans antialiased;
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-deep;
+    text-wrap: balance;
+  }
+
+  /* Visible focus rings for keyboard users on every interactive element. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid var(--accent-glow);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  ::selection {
+    background: var(--accent-glow);
+    color: var(--color-deep);
+  }
+}
+
+@layer components {
+  /* Section wrapper with consistent vertical rhythm + scroll anchor offset. */
+  .section {
+    @apply scroll-mt-24 py-20 sm:py-24;
+  }
+
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 rounded-full bg-powder/60 px-4 py-1.5 text-sm font-semibold uppercase tracking-wide text-azure;
+  }
+
+  .heading {
+    @apply font-display text-3xl font-extrabold leading-tight text-deep sm:text-4xl md:text-[2.6rem];
+  }
+
+  .subheading {
+    @apply mt-4 max-w-2xl text-lg leading-relaxed text-ink/80;
+  }
+
+  /* Buttons -------------------------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-semibold transition-all duration-200 focus-visible:outline-none;
+  }
+  .btn-primary {
+    @apply btn bg-blue text-white shadow-soft hover:-translate-y-0.5 hover:bg-azure hover:shadow-card active:translate-y-0;
+  }
+  .btn-secondary {
+    @apply btn border-2 border-azure/30 bg-white/70 text-deep backdrop-blur hover:-translate-y-0.5 hover:border-azure hover:bg-white;
+  }
+  .btn-ghost {
+    @apply btn text-deep hover:bg-powder/50;
+  }
+
+  /* Card --------------------------------------------------------------- */
+  .card {
+    @apply rounded-2xl border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1.5 hover:shadow-card;
+  }
+
+  /* Circuit-line divider used between sections. */
+  .circuit-divider {
+    height: 2px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--color-powder) 0,
+      var(--color-powder) 14px,
+      transparent 14px,
+      transparent 26px
+    );
+  }
+}
+
+/* Scroll-reveal utility — elements start hidden, .is-visible reveals them.
+   Applied via the useScrollReveal hook (IntersectionObserver). */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
