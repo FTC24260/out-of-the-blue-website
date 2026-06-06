@@ -8,6 +8,10 @@ nonprofit.
 Built with **React + Vite + Tailwind CSS**. Single-page, smooth-scrolling,
 mobile-first, accessible (WCAG AA), and dependency-light.
 
+> 👥 **On the team and want to update the site?** Read
+> **[TEAM-GUIDE.md](TEAM-GUIDE.md)** — a plain-English, no-experience-needed
+> walkthrough of how to safely make changes and preview them before they go live.
+
 ---
 
 ## Quick start
