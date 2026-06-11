@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
-import SectionHeader from './SectionHeader'
 import { CONTACT, TEAM } from '../data/site'
 
 const ROLES = ['Student', 'Parent', 'Sponsor', 'Mentor']
@@ -89,18 +88,18 @@ export default function Contact() {
   )
 
   return (
-    <section id="contact" className="section bg-cloud">
+    <section id="contact" className="section">
       <div className="container-x">
-        <SectionHeader
-          eyebrow="Contact"
-          title="Get in touch"
-          subtitle="Questions about joining, mentoring, or sponsoring? Send us a note — we'd love to hear from you."
-          center
-        />
+        <span className="eyebrow">Contact</span>
+        <h2 className="heading">Get in touch</h2>
+        <p className="subheading">
+          Questions about joining, mentoring, or sponsoring? Send us a note —
+          we'd love to hear from you.
+        </p>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="mt-6 grid gap-5 lg:grid-cols-2">
           {/* Form */}
-          <div className="reveal card">
+          <div className="card">
             {status === 'success' ? (
               <div
                 className="flex h-full flex-col items-center justify-center py-10 text-center"
@@ -108,14 +107,14 @@ export default function Contact() {
                 aria-live="polite"
               >
                 <CheckCircle2
-                  size={56}
-                  className="text-azure"
+                  size={48}
+                  className="text-blue"
                   aria-hidden="true"
                 />
-                <h3 className="mt-4 font-display text-2xl font-bold text-deep">
+                <h3 className="mt-4 text-xl font-bold text-light">
                   Message sent!
                 </h3>
-                <p className="mt-2 max-w-sm text-ink/75">
+                <p className="mt-2 max-w-sm text-sm text-muted">
                   Thanks for reaching out — we'll get back to you as soon as we
                   can. {!CONTACT.formEndpoint && '(Demo mode: nothing was actually sent.)'}
                 </p>
@@ -152,7 +151,7 @@ export default function Contact() {
                 <div className="mb-4">
                   <label
                     htmlFor="role"
-                    className="mb-1.5 block text-sm font-semibold text-deep"
+                    className="mb-1.5 block text-sm font-medium text-light"
                   >
                     I'm a…
                   </label>
@@ -162,8 +161,8 @@ export default function Contact() {
                     onChange={update('role')}
                     aria-invalid={!!errors.role}
                     aria-describedby={errors.role ? 'role-error' : undefined}
-                    className={`w-full rounded-xl border bg-white px-4 py-3 text-ink outline-none transition focus:border-azure ${
-                      errors.role ? 'border-red-400' : 'border-powder'
+                    className={`w-full rounded-xl border bg-navy px-4 py-2.5 text-light outline-none transition focus:border-blue ${
+                      errors.role ? 'border-red-500' : 'border-line'
                     }`}
                   >
                     <option value="" disabled>
@@ -182,7 +181,7 @@ export default function Contact() {
                 <div className="mb-4">
                   <label
                     htmlFor="message"
-                    className="mb-1.5 block text-sm font-semibold text-deep"
+                    className="mb-1.5 block text-sm font-medium text-light"
                   >
                     Message
                   </label>
@@ -194,8 +193,8 @@ export default function Contact() {
                     aria-invalid={!!errors.message}
                     aria-describedby={errors.message ? 'message-error' : undefined}
                     placeholder="How can we help?"
-                    className={`w-full resize-y rounded-xl border bg-white px-4 py-3 text-ink outline-none transition focus:border-azure ${
-                      errors.message ? 'border-red-400' : 'border-powder'
+                    className={`w-full resize-y rounded-xl border bg-navy px-4 py-2.5 text-light outline-none transition placeholder:text-muted/60 focus:border-blue ${
+                      errors.message ? 'border-red-500' : 'border-line'
                     }`}
                   />
                   {errors.message && (
@@ -205,7 +204,7 @@ export default function Contact() {
 
                 {status === 'error' && (
                   <p
-                    className="mb-4 flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-700"
+                    className="mb-4 flex items-center gap-2 rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-300"
                     role="alert"
                   >
                     <AlertCircle size={18} aria-hidden="true" />
@@ -236,15 +235,13 @@ export default function Contact() {
           </div>
 
           {/* Location + direct contact */}
-          <div className="reveal flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
             <div className="card">
-              <h3 className="font-display text-xl font-bold text-deep">
-                Visit us
-              </h3>
-              <p className="mt-3 flex items-start gap-3 text-ink/80">
-                <MapPin size={20} className="mt-0.5 shrink-0 text-azure" aria-hidden="true" />
+              <h3 className="text-lg font-bold text-light">Visit us</h3>
+              <p className="mt-3 flex items-start gap-3 text-sm text-muted">
+                <MapPin size={18} className="mt-0.5 shrink-0 text-blue" aria-hidden="true" />
                 <span>
-                  <strong className="text-deep">{TEAM.meeting.venue}</strong>
+                  <strong className="text-light">{TEAM.meeting.venue}</strong>
                   <br />
                   {TEAM.meeting.campus}
                   <br />
@@ -253,9 +250,9 @@ export default function Contact() {
               </p>
               <a
                 href={`mailto:${CONTACT.email}`}
-                className="mt-4 inline-flex items-center gap-3 text-ink/80 hover:text-azure"
+                className="mt-4 inline-flex items-center gap-3 text-sm text-muted transition-colors hover:text-azure"
               >
-                <Mail size={20} className="shrink-0 text-azure" aria-hidden="true" />
+                <Mail size={18} className="shrink-0 text-blue" aria-hidden="true" />
                 {/* TODO: confirm public contact email in src/data/site.js */}
                 {CONTACT.email}
               </a>
@@ -283,15 +280,15 @@ export default function Contact() {
 function Field({ id, label, error, ...props }) {
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-deep">
+      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-light">
         {label}
       </label>
       <input
         id={id}
         aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`w-full rounded-xl border bg-white px-4 py-3 text-ink outline-none transition focus:border-azure ${
-          error ? 'border-red-400' : 'border-powder'
+        className={`w-full rounded-xl border bg-navy px-4 py-2.5 text-light outline-none transition placeholder:text-muted/60 focus:border-blue ${
+          error ? 'border-red-500' : 'border-line'
         }`}
         {...props}
       />
@@ -302,7 +299,7 @@ function Field({ id, label, error, ...props }) {
 
 function ErrorText({ id, children }) {
   return (
-    <p id={id} className="mt-1.5 flex items-center gap-1.5 text-sm text-red-600">
+    <p id={id} className="mt-1.5 flex items-center gap-1.5 text-sm text-red-300">
       <AlertCircle size={14} aria-hidden="true" />
       {children}
     </p>

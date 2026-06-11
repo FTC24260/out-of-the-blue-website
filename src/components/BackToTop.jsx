@@ -17,10 +17,10 @@ export default function BackToTop() {
     <button
       onClick={scrollToTop}
       aria-label="Back to top"
-      className={`fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full bg-blue text-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:bg-azure ${
+      className={`fixed bottom-6 right-6 z-40 grid h-11 w-11 place-items-center rounded-full bg-blue text-white transition-all duration-200 hover:bg-azure ${
         visible
           ? 'translate-y-0 opacity-100'
-          : 'pointer-events-none translate-y-4 opacity-0'
+          : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >
       <ArrowUp size={22} aria-hidden="true" />

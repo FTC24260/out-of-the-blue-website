@@ -1,11 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import About from './components/About'
-import Mission from './components/Mission'
-import Robot from './components/Robot'
-import Team from './components/Team'
+import TeamAbout from './components/TeamAbout'
 import Achievements from './components/Achievements'
-import Outreach from './components/Outreach'
 import Sponsors from './components/Sponsors'
 import GetInvolved from './components/GetInvolved'
 import Contact from './components/Contact'
@@ -14,7 +10,6 @@ import BackToTop from './components/BackToTop'
 import { useScrollReveal } from './hooks/useScrollReveal'
 
 export default function App() {
-  // Wire up scroll-reveal for every `.reveal` element on the page.
   useScrollReveal()
 
   return (
@@ -22,7 +17,7 @@ export default function App() {
       {/* Skip link for keyboard / screen-reader users */}
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-deep focus:shadow-card"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-xl focus:bg-panel focus:px-4 focus:py-2 focus:font-semibold focus:text-light"
       >
         Skip to content
       </a>
@@ -31,13 +26,8 @@ export default function App() {
 
       <main id="main">
         <Hero />
-        <div className="circuit-divider" />
-        <About />
-        <Mission />
-        <Robot />
-        <Team />
+        <TeamAbout />
         <Achievements />
-        <Outreach />
         <Sponsors />
         <GetInvolved />
         <Contact />

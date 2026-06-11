@@ -75,25 +75,18 @@ export const SOCIALS = [
 
 /* --- Navigation ----------------------------------------------------------- */
 export const NAV_LINKS = [
-  { id: 'about', label: 'About' },
-  { id: 'mission', label: 'Mission' },
-  { id: 'robot', label: 'The Robot' },
-  { id: 'team', label: 'Team' },
+  { id: 'team', label: 'About & Team' },
   { id: 'achievements', label: 'Achievements' },
-  { id: 'outreach', label: 'Outreach' },
   { id: 'sponsors', label: 'Sponsors' },
+  { id: 'join', label: 'Join' },
   { id: 'contact', label: 'Contact' },
 ]
 
 /* Ids of every scroll-spy section, in document order. */
 export const SECTION_IDS = [
   'home',
-  'about',
-  'mission',
-  'robot',
   'team',
   'achievements',
-  'outreach',
   'sponsors',
   'join',
   'contact',

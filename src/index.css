@@ -3,32 +3,30 @@
 @tailwind utilities;
 
 /* ===========================================================================
-   Design tokens — light-blue "Out of the Blue" theme.
-   Mirrored in tailwind.config.js so they can be used as Tailwind classes too.
+   Design tokens — dark-blue "Out of the Blue" theme.
+   Clean, minimal, flat. Mirrored in tailwind.config.js.
    =========================================================================== */
 :root {
-  --color-sky: #e8f4fb; /* page background / light sections */
-  --color-powder: #bde3f5; /* soft fills, cards */
-  --color-blue: #4fb3e8; /* primary accent / buttons */
-  --color-azure: #2d8fd4; /* primary hover / links */
-  --color-deep: #0f4c81; /* headings / footer / contrast text */
-  --color-ink: #12263a; /* body text */
-  --color-white: #ffffff;
-  --color-cloud: #f7fbfe; /* subtle alt background */
-  --accent-glow: #7fd0ff; /* highlights, focus rings */
+  --color-navy: #0a1b30; /* page background */
+  --color-navy-alt: #0e2440; /* alt section background */
+  --color-panel: #13294b; /* cards / surfaces */
+  --color-line: #1e3a5f; /* borders */
+  --color-blue: #3b9ee5; /* primary accent */
+  --color-azure: #74bbee; /* links / hover */
+  --color-glow: #9bd3ff; /* highlights / focus */
+  --color-light: #e8f0f8; /* primary text */
+  --color-muted: #9db2c9; /* secondary text */
 
-  /* Sticky-header offset so smooth-scroll anchors aren't hidden under the navbar. */
-  --header-h: 72px;
+  /* Sticky-header offset so anchors aren't hidden under the navbar. */
+  --header-h: 64px;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Anchored sections account for the fixed header height. */
     scroll-padding-top: var(--header-h);
   }
 
-  /* Respect users who prefer reduced motion. */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -43,7 +41,7 @@
   }
 
   body {
-    @apply bg-sky text-ink font-sans antialiased;
+    @apply bg-navy font-sans text-muted antialiased;
     margin: 0;
   }
 
@@ -51,94 +49,78 @@
   h2,
   h3,
   h4 {
-    @apply font-display text-deep;
+    @apply font-display font-bold text-light;
     text-wrap: balance;
   }
 
-  /* Visible focus rings for keyboard users on every interactive element. */
+  /* Visible focus rings for keyboard users. */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible,
   [tabindex]:focus-visible {
-    outline: 3px solid var(--accent-glow);
+    outline: 2px solid var(--color-glow);
     outline-offset: 2px;
-    border-radius: 8px;
+    border-radius: 6px;
   }
 
   ::selection {
-    background: var(--accent-glow);
-    color: var(--color-deep);
+    background: var(--color-blue);
+    color: #fff;
   }
 }
 
 @layer components {
-  /* Section wrapper with consistent vertical rhythm + scroll anchor offset. */
+  /* Compact, consistent section rhythm. */
   .section {
-    @apply scroll-mt-24 py-20 sm:py-24;
+    @apply scroll-mt-20 py-14 sm:py-16;
   }
 
   .container-x {
-    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+    @apply mx-auto w-full max-w-5xl px-5 sm:px-6;
   }
 
   .eyebrow {
-    @apply mb-3 inline-flex items-center gap-2 rounded-full bg-powder/60 px-4 py-1.5 text-sm font-semibold uppercase tracking-wide text-azure;
+    @apply mb-2 inline-block text-xs font-semibold uppercase tracking-[0.18em] text-blue;
   }
 
   .heading {
-    @apply font-display text-3xl font-extrabold leading-tight text-deep sm:text-4xl md:text-[2.6rem];
+    @apply font-display text-2xl font-bold leading-tight text-light sm:text-3xl;
   }
 
   .subheading {
-    @apply mt-4 max-w-2xl text-lg leading-relaxed text-ink/80;
+    @apply mt-3 max-w-2xl leading-relaxed text-muted;
   }
 
-  /* Buttons -------------------------------------------------------------- */
+  /* Buttons — flat, no lift/glow gimmicks. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3 text-base font-semibold transition-all duration-200 focus-visible:outline-none;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors duration-150 focus-visible:outline-none;
   }
   .btn-primary {
-    @apply btn bg-blue text-white shadow-soft hover:-translate-y-0.5 hover:bg-azure hover:shadow-card active:translate-y-0;
+    @apply btn bg-blue text-white hover:bg-azure;
   }
   .btn-secondary {
-    @apply btn border-2 border-azure/30 bg-white/70 text-deep backdrop-blur hover:-translate-y-0.5 hover:border-azure hover:bg-white;
-  }
-  .btn-ghost {
-    @apply btn text-deep hover:bg-powder/50;
+    @apply btn border border-line bg-transparent text-light hover:border-blue hover:text-azure;
   }
 
-  /* Card --------------------------------------------------------------- */
+  /* Card — flat panel with a subtle border. */
   .card {
-    @apply rounded-2xl border border-white/70 bg-white/80 p-6 shadow-soft backdrop-blur transition-all duration-300;
-  }
-  .card-hover {
-    @apply hover:-translate-y-1.5 hover:shadow-card;
+    @apply rounded-2xl border border-line bg-panel/60 p-5;
   }
 
-  /* Circuit-line divider used between sections. */
-  .circuit-divider {
-    height: 2px;
-    background-image: repeating-linear-gradient(
-      90deg,
-      var(--color-powder) 0,
-      var(--color-powder) 14px,
-      transparent 14px,
-      transparent 26px
-    );
+  .link {
+    @apply text-azure underline-offset-2 transition-colors hover:text-glow hover:underline;
   }
 }
 
-/* Scroll-reveal utility — elements start hidden, .is-visible reveals them.
-   Applied via the useScrollReveal hook (IntersectionObserver). */
+/* Light scroll-reveal — subtle fade only, no big movement. */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(12px);
   transition:
-    opacity 0.7s ease-out,
-    transform 0.7s ease-out;
-  will-change: opacity, transform;
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
 }
 .reveal.is-visible {
   opacity: 1;

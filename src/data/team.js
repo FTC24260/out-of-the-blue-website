@@ -21,14 +21,5 @@ export const MENTORS = [
   { name: 'Mentor', role: 'Business & Outreach', initials: 'BO', photo: null },
 ]
 
-/* Color accent per role chip — keeps the grid lively but on-palette. */
-export const ROLE_STYLES = {
-  Build: 'bg-blue/15 text-azure',
-  Programming: 'bg-deep/10 text-deep',
-  CAD: 'bg-glow/30 text-azure',
-  Outreach: 'bg-powder text-deep',
-  Business: 'bg-azure/15 text-azure',
-  'Lead Mentor': 'bg-deep/10 text-deep',
-  'Engineering Mentor': 'bg-blue/15 text-azure',
-  'Business & Outreach': 'bg-powder text-deep',
-}
+/* Role chip styling — single subtle style on the dark theme. */
+export const ROLE_CHIP = 'bg-blue/15 text-azure'
