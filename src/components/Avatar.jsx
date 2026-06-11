@@ -18,7 +18,7 @@ export default function Avatar({ name, initials, photo }) {
       aria-label={`Placeholder portrait for ${name}`}
       className="flex h-full w-full items-center justify-center bg-navyAlt"
     >
-      <span className="font-display text-xl font-bold text-blue">
+      <span className="font-display text-xl text-azure">
         {initials}
       </span>
     </div>

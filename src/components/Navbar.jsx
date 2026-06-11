@@ -49,7 +49,7 @@ export default function Navbar() {
             <span className="block text-sm font-bold text-light">
               {TEAM.wordmark}
             </span>
-            <span className="block text-[11px] font-medium text-blue">
+            <span className="block text-[11px] text-azure">
               FTC #{TEAM.number}
             </span>
           </span>

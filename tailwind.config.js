@@ -12,8 +12,8 @@ export default {
         blue: '#3B9EE5', // primary accent / buttons
         azure: '#74BBEE', // links / hover
         glow: '#9BD3FF', // highlights / focus rings
-        light: '#E8F0F8', // primary text
-        muted: '#9DB2C9', // secondary text
+        light: '#EAF3FF', // primary text — near-white, faint blue tint
+        muted: '#CFE0F5', // secondary text — light blue, clearly readable
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

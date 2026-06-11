@@ -3,7 +3,6 @@ import Hero from './components/Hero'
 import TeamAbout from './components/TeamAbout'
 import Achievements from './components/Achievements'
 import Sponsors from './components/Sponsors'
-import GetInvolved from './components/GetInvolved'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
@@ -29,7 +28,6 @@ export default function App() {
         <TeamAbout />
         <Achievements />
         <Sponsors />
-        <GetInvolved />
         <Contact />
       </main>
 

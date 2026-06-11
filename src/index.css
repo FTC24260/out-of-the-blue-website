@@ -14,8 +14,8 @@
   --color-blue: #3b9ee5; /* primary accent */
   --color-azure: #74bbee; /* links / hover */
   --color-glow: #9bd3ff; /* highlights / focus */
-  --color-light: #e8f0f8; /* primary text */
-  --color-muted: #9db2c9; /* secondary text */
+  --color-light: #eaf3ff; /* primary text — near-white, faint blue tint */
+  --color-muted: #cfe0f5; /* secondary text — light blue, clearly readable */
 
   /* Sticky-header offset so anchors aren't hidden under the navbar. */
   --header-h: 64px;
@@ -43,14 +43,28 @@
   body {
     @apply bg-navy font-sans text-muted antialiased;
     margin: 0;
+    /* No bold anywhere — keep the whole site at a light, even weight. */
+    font-weight: 400;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display font-bold text-light;
+    @apply font-display text-light;
+    font-weight: 400;
     text-wrap: balance;
+  }
+
+  /* Globally neutralize bold utility classes so nothing renders heavy.
+     (Tailwind's font-semibold/bold/extrabold all collapse to normal weight.) */
+  .font-medium,
+  .font-semibold,
+  .font-bold,
+  .font-extrabold,
+  strong,
+  b {
+    font-weight: 400 !important;
   }
 
   /* Visible focus rings for keyboard users. */
@@ -82,7 +96,7 @@
   }
 
   .eyebrow {
-    @apply mb-2 inline-block text-xs font-semibold uppercase tracking-[0.18em] text-blue;
+    @apply mb-2 inline-block text-xs uppercase tracking-[0.18em] text-azure;
   }
 
   .heading {

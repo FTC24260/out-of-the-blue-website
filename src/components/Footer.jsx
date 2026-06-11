@@ -25,7 +25,7 @@ export default function Footer() {
             />
             <div className="leading-tight">
               <p className="text-base font-bold text-light">{TEAM.wordmark}</p>
-              <p className="text-xs font-medium text-blue">FTC #{TEAM.number}</p>
+              <p className="text-xs text-azure">FTC #{TEAM.number}</p>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed">
@@ -60,7 +60,7 @@ export default function Footer() {
 
         {/* Quick links (mirror nav) */}
         <nav aria-label="Footer">
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-blue">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-azure">
             Explore
           </h3>
           <ul className="mt-3 space-y-2">
@@ -79,13 +79,13 @@ export default function Footer() {
 
         {/* Get involved */}
         <div>
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-blue">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-azure">
             Get involved
           </h3>
           <ul className="mt-3 space-y-2">
             <li>
               <button
-                onClick={() => scrollToSection('join')}
+                onClick={() => scrollToSection('contact')}
                 className="text-sm transition-colors hover:text-light"
               >
                 Join the team

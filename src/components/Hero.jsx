@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="container-x grid items-center gap-10 py-16 sm:py-20 md:grid-cols-[1.2fr_1fr]">
         {/* Copy */}
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue">
+          <p className="text-xs uppercase tracking-[0.18em] text-azure">
             {TEAM.program} · Team #{TEAM.number}
           </p>
           <h1 className="mt-4 font-display text-4xl font-extrabold leading-[1.1] text-light sm:text-5xl">

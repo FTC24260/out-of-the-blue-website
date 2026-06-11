@@ -78,7 +78,6 @@ export const NAV_LINKS = [
   { id: 'team', label: 'About & Team' },
   { id: 'achievements', label: 'Achievements' },
   { id: 'sponsors', label: 'Sponsors' },
-  { id: 'join', label: 'Join' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -88,6 +87,5 @@ export const SECTION_IDS = [
   'team',
   'achievements',
   'sponsors',
-  'join',
   'contact',
 ]
