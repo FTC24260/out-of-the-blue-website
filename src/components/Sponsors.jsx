@@ -111,7 +111,7 @@ export default function Sponsors({ withHeading = false }) {
         </div>
 
         {/* Logo wall */}
-        <h3 className="mt-14 text-2xl font-bold text-light">Our supporters</h3>
+        <h3 className="mt-14 text-2xl font-bold text-light">Our sponsors</h3>
         {/* One flex row per SPONSOR_ROWS entry: `grow` from a zero basis makes
             each row split the width evenly regardless of how many logos it
             holds, which a single grid can't do for a 3-then-4 split. Below sm
