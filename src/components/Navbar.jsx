@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Menu, X } from 'lucide-react'
-import { NAV_LINKS, SECTION_IDS, TEAM } from '../data/site'
-import { useActiveSection } from '../hooks/useActiveSection'
-import { scrollToSection } from '../lib/scroll'
+import { NavLink, useLocation } from 'react-router-dom'
+import { NAV_LINKS, TEAM } from '../data/site'
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const active = useActiveSection(SECTION_IDS)
+  const { pathname } = useLocation()
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
@@ -23,10 +22,10 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const go = (id) => {
+  // Close the mobile menu whenever the route changes.
+  useEffect(() => {
     setOpen(false)
-    scrollToSection(id)
-  }
+  }, [pathname])
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-navy/90 backdrop-blur">
@@ -35,10 +34,10 @@ export default function Navbar() {
         className="container-x flex h-[var(--header-h)] items-center justify-between"
       >
         {/* Wordmark / logo */}
-        <button
-          onClick={() => go('home')}
+        <NavLink
+          to="/"
           className="flex items-center gap-2.5 text-left"
-          aria-label="Out Of the Blue, FTC team 24260 — back to top"
+          aria-label="Out Of the Blue, FTC team 24260, home"
         >
           <img
             src="/logo.jpg"
@@ -53,36 +52,36 @@ export default function Navbar() {
               FTC #{TEAM.number}
             </span>
           </span>
-        </button>
+        </NavLink>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => (
-            <li key={link.id}>
-              <button
-                onClick={() => go(link.id)}
-                aria-current={active === link.id ? 'true' : undefined}
-                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  active === link.id
-                    ? 'text-azure'
-                    : 'text-muted hover:text-light'
-                }`}
+            <li key={link.to}>
+              <NavLink
+                to={link.to}
+                end={link.to === '/'}
+                className={({ isActive }) =>
+                  `rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    isActive ? 'text-azure' : 'text-muted hover:text-light'
+                  }`
+                }
               >
                 {link.label}
-              </button>
+              </NavLink>
             </li>
           ))}
           <li>
-            <button onClick={() => go('sponsors')} className="btn-primary ml-2 px-4 py-2">
+            <NavLink to="/sponsors" className="btn-primary ml-2 px-4 py-2">
               Sponsor Us
-            </button>
+            </NavLink>
           </li>
         </ul>
 
         {/* Hamburger (mobile) */}
         <button
           onClick={() => setOpen((v) => !v)}
-          className="grid h-10 w-10 place-items-center rounded-lg border border-line text-light md:hidden"
+          className="grid h-10 w-10 place-items-center rounded-lg border border-line text-light lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -93,27 +92,29 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div id="mobile-menu" className="border-t border-line bg-navy md:hidden">
+        <div id="mobile-menu" className="border-t border-line bg-navy lg:hidden">
           <ul className="container-x flex flex-col gap-1 py-3">
             {NAV_LINKS.map((link) => (
-              <li key={link.id}>
-                <button
-                  onClick={() => go(link.id)}
-                  aria-current={active === link.id ? 'true' : undefined}
-                  className={`w-full rounded-lg px-3 py-3 text-left text-sm font-medium transition-colors ${
-                    active === link.id
-                      ? 'bg-panel text-azure'
-                      : 'text-muted hover:bg-panel hover:text-light'
-                  }`}
+              <li key={link.to}>
+                <NavLink
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) =>
+                    `block w-full rounded-lg px-3 py-3 text-left text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'bg-panel text-azure'
+                        : 'text-muted hover:bg-panel hover:text-light'
+                    }`
+                  }
                 >
                   {link.label}
-                </button>
+                </NavLink>
               </li>
             ))}
             <li className="mt-1">
-              <button onClick={() => go('sponsors')} className="btn-primary w-full">
+              <NavLink to="/sponsors" className="btn-primary w-full">
                 Sponsor Us
-              </button>
+              </NavLink>
             </li>
           </ul>
         </div>

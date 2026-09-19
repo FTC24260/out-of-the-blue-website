@@ -1,6 +1,6 @@
 import { ArrowRight, MapPin } from 'lucide-react'
 import { TEAM } from '../data/site'
-import { scrollToSection } from '../lib/scroll'
+import { Link } from 'react-router-dom'
 
 export default function Hero() {
   return (
@@ -23,13 +23,13 @@ export default function Hero() {
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
-            <button onClick={() => scrollToSection('team')} className="btn-primary">
+            <Link to="/team" className="btn-primary">
               Meet the Team
               <ArrowRight size={16} aria-hidden="true" />
-            </button>
-            <button onClick={() => scrollToSection('sponsors')} className="btn-secondary">
+            </Link>
+            <Link to="/sponsors" className="btn-secondary">
               Support Us
-            </button>
+            </Link>
           </div>
 
           <p className="mt-6 inline-flex items-center gap-2 text-sm text-muted">

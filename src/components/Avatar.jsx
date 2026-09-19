@@ -7,6 +7,8 @@ export default function Avatar({ name, initials, photo }) {
         src={photo}
         alt={`Portrait of ${name}`}
         loading="lazy"
+        /* Portraits in /public/team are already cropped square to head-and-
+           shoulders, so object-cover has nothing to trim. */
         className="h-full w-full object-cover"
       />
     )

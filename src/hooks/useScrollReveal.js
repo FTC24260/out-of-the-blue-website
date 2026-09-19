@@ -2,10 +2,13 @@ import { useEffect } from 'react'
 
 /**
  * Adds the `is-visible` class to every element with the `reveal` class once it
- * scrolls into view, triggering the CSS scroll-reveal animation. Runs once on
- * mount and observes all current `.reveal` nodes.
+ * scrolls into view, triggering the CSS scroll-reveal animation.
+ *
+ * @param {*} rerunKey  Changing this re-scans the DOM. Pass the current route
+ *   so a client-side navigation observes the new page's `.reveal` nodes —
+ *   without it the observer would still be watching the unmounted page's.
  */
-export function useScrollReveal() {
+export function useScrollReveal(rerunKey) {
   useEffect(() => {
     const nodes = document.querySelectorAll('.reveal')
 
@@ -32,5 +35,5 @@ export function useScrollReveal() {
 
     nodes.forEach((n) => observer.observe(n))
     return () => observer.disconnect()
-  }, [])
+  }, [rerunKey])
 }

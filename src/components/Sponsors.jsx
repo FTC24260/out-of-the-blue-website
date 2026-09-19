@@ -1,21 +1,37 @@
-import { Check, ShieldCheck } from 'lucide-react'
-import { SPONSOR_TIERS } from '../data/content'
+import { useState } from 'react'
+import { Check, ShieldCheck, AlertCircle } from 'lucide-react'
+import { SPONSOR_TIERS, SPONSOR_ROWS } from '../data/content'
+import { Link } from 'react-router-dom'
 import { CONTACT, TEAM } from '../data/site'
 
-export default function Sponsors() {
+/* Biome Robotics fields several FTC teams, so every sponsorship path has to
+   name us explicitly or the funds land with the wrong team. */
+const TEAM_DESIGNATION = 'Out Of the Blue (24260)'
+
+/* `withHeading` draws the eyebrow/title inline. The home page needs it (the
+   section sits in a scroll); /sponsors doesn't, because PageHeader already
+   supplies the masthead there. */
+export default function Sponsors({ withHeading = false }) {
   const mailto = `mailto:${CONTACT.email}?subject=${encodeURIComponent(
     'Sponsoring Out Of the Blue · FTC #24260',
+  )}&body=${encodeURIComponent(
+    `Hi Out Of the Blue,\n\nI'd like to sponsor FTC Team ${TEAM_DESIGNATION}.\n\n` +
+      'Organization:\nContact name:\nSponsorship level:\n\nThanks!',
   )}`
 
   return (
-    <section id="sponsors" className="section border-b border-line">
+    <section id="sponsors" className="section">
       <div className="container-x">
-        <span className="eyebrow">Sponsors &amp; Support</span>
-        <h2 className="heading">Help us build what's next</h2>
-        <p className="subheading">
-          Parts, registration, travel, and tools add up fast. Your support
-          directly funds students learning to engineer, lead, and give back.
-        </p>
+        {withHeading && (
+          <>
+            <span className="eyebrow">Sponsors &amp; Support</span>
+            <h2 className="heading">Help us build what's next</h2>
+            <p className="subheading">
+              Parts, registration, travel, and tools add up fast. Your support
+              directly funds students learning to engineer, lead, and give back.
+            </p>
+          </>
+        )}
 
         {/* 501c3 + donate banner */}
         <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-line bg-panel/60 p-6 sm:flex-row sm:items-center sm:justify-between">
@@ -39,11 +55,27 @@ export default function Sponsors() {
             >
               Donate
             </a>
-            <a href={mailto} className="btn-secondary">
+            <Link to="/contact" className="btn-secondary">
               Become a sponsor
-            </a>
+            </Link>
           </div>
         </div>
+
+        {/* Designation notice — deliberately high-contrast: the parent org runs
+            multiple teams, so a gift without our name on it can be misrouted. */}
+        <p className="mt-4 flex items-start gap-3 rounded-2xl border border-blue bg-blue/10 px-5 py-4 text-sm leading-relaxed text-light">
+          <AlertCircle size={18} className="mt-0.5 shrink-0 text-azure" aria-hidden="true" />
+          <span>
+            <span className="text-azure">Please note:</span> {TEAM.parentOrg}{' '}
+            supports several robotics teams. When you donate or fill out a
+            company matching form, write{' '}
+            <span className="whitespace-nowrap text-azure">
+              &ldquo;{TEAM_DESIGNATION}&rdquo;
+            </span>{' '}
+            in the note, memo, or &ldquo;designation&rdquo; field so your gift
+            reaches our team.
+          </span>
+        </p>
 
         {/* Tiers */}
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -59,8 +91,8 @@ export default function Sponsors() {
                   Popular
                 </span>
               )}
-              <h4 className="text-base font-bold text-light">{tier.name}</h4>
-              <p className="mt-0.5 font-display text-xl font-extrabold text-azure">
+              <h4 className="text-lg font-bold text-light">{tier.name}</h4>
+              <p className="mt-0.5 font-display text-2xl font-extrabold text-azure">
                 {tier.amount}
               </p>
               <ul className="mt-3 flex-1 space-y-2">
@@ -79,27 +111,72 @@ export default function Sponsors() {
         </div>
 
         {/* Logo wall */}
-        <h3 className="mt-10 text-lg font-bold text-light">Our supporters</h3>
-        {/* TODO: replace placeholder logos with real sponsor logos.
-            Add images to /public/sponsors/ and render <img> tags here. */}
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div
-              key={i}
-              className="flex h-20 items-center justify-center rounded-xl border border-dashed border-line text-xs font-medium text-muted"
-            >
-              Your logo here
+        <h3 className="mt-14 text-2xl font-bold text-light">Our supporters</h3>
+        {/* One flex row per SPONSOR_ROWS entry: `grow` from a zero basis makes
+            each row split the width evenly regardless of how many logos it
+            holds, which a single grid can't do for a 3-then-4 split. Below sm
+            they fall back to two-up and wrap. */}
+        <div className="mt-8 space-y-8">
+          {SPONSOR_ROWS.map((row, i) => (
+            <div key={i} className="flex flex-wrap justify-center gap-6">
+              {row.map((sponsor) => (
+                <div
+                  key={sponsor.name}
+                  className="basis-[45%] sm:basis-0 sm:grow"
+                >
+                  <SponsorLogo sponsor={sponsor} />
+                </div>
+              ))}
             </div>
           ))}
         </div>
-        <p className="mt-4 text-sm text-muted">
+        <p className="mt-6 text-base text-muted">
           Could your organization be next?{' '}
           <a href={mailto} className="link font-medium">
             Let's talk
-          </a>
-          .
+          </a>{' '}
+          and remember to name{' '}
+          <span className="text-azure">{TEAM_DESIGNATION}</span> as the team
+          you're sponsoring.
         </p>
       </div>
     </section>
+  )
+}
+
+/* --- Sponsor logo tile ---------------------------------------------------
+   The tile is a bare layout box — no panel, no border — so the transparent
+   PNGs sit straight on the navy page. That only works because each logo is
+   supplied in a treatment that reads on dark (see SPONSORS in data/content).
+   `scale` is an optical-size knob: object-contain alone lets a wide wordmark
+   read as much larger than a squarish lockup even though both technically
+   "fit". A missing file falls back to the name rather than a broken image. */
+function SponsorLogo({ sponsor }) {
+  const [failed, setFailed] = useState(false)
+  return (
+    <figure className="text-center">
+      <div
+        className={`flex h-40 items-center justify-center ${
+          sponsor.plate ? 'rounded-2xl bg-white p-3' : 'px-4'
+        }`}
+      >
+        {!failed && (
+          <img
+            src={sponsor.logo}
+            alt={`${sponsor.name} logo`}
+            loading="lazy"
+            onError={() => setFailed(true)}
+            style={{
+              maxHeight: `${sponsor.scale * 100}%`,
+              maxWidth: `${sponsor.scale * 100}%`,
+            }}
+            className={`object-contain ${sponsor.rounded ? 'rounded-2xl' : ''}`}
+          />
+        )}
+      </div>
+      {/* Name always shows alongside the mark, and carries the whole tile on
+          its own if a logo file is ever missing. */}
+      <figcaption className="mt-3 text-base text-light">{sponsor.name}</figcaption>
+    </figure>
   )
 }
