@@ -17,11 +17,11 @@ export const TEAM = {
   parentOrgUrl: 'https://www.biome-robotics.org',
   rookieYear: 2024, // Joined Biome Robotics in 2024 after a strong rookie year.
 
-  // Real team facts (confirmed by the team).
-  yearsTogether: 3, // Currently in our third season.
-  memberCount: 8, // 8 students on the team.
-  girlsPercent: 50, // ~50% of the team are girls.
-  sisterTeams: 2, // 2 sister teams under Biome Robotics.
+  // Real team facts (confirmed by the team, Sept 2026).
+  yearsTogether: 4, // Currently in our fourth season.
+  memberCount: 11, // 11 students on the team.
+  sisterTeams: 3, // 3 sister teams under Biome Robotics.
+  seasonsCompleted: 3, // 2023, 2024, 2025 — the 4th season is underway.
 
   // Meeting location — The Science House, NC State University.
   meeting: {
@@ -52,8 +52,7 @@ export const CONTACT = {
 export const SOCIALS = [
   {
     label: 'Instagram',
-    // TODO: confirm handle — placeholder URL.
-    href: 'https://www.instagram.com/',
+    href: 'https://www.instagram.com/outoftheblueftc/',
     icon: 'instagram',
   },
   {
@@ -68,24 +67,20 @@ export const SOCIALS = [
   },
   {
     label: 'FTC Events',
-    href: 'https://ftc-events.firstinspires.org',
+    href: 'https://ftc-events.firstinspires.org/team/24260',
     icon: 'trophy',
   },
 ]
 
-/* --- Navigation ----------------------------------------------------------- */
+/* --- Navigation -----------------------------------------------------------
+   The site is routed now, not one long scroll. '/' is the Out Of the Blue
+   story end to end; everything else lives on its own page. */
 export const NAV_LINKS = [
-  { id: 'team', label: 'About & Team' },
-  { id: 'achievements', label: 'Achievements' },
-  { id: 'sponsors', label: 'Sponsors' },
-  { id: 'contact', label: 'Contact' },
-]
-
-/* Ids of every scroll-spy section, in document order. */
-export const SECTION_IDS = [
-  'home',
-  'team',
-  'achievements',
-  'sponsors',
-  'contact',
+  { to: '/', label: 'Home' },
+  { to: '/team', label: 'Team' },
+  { to: '/awards', label: 'Awards' },
+  { to: '/outreach', label: 'Outreach' },
+  { to: '/media', label: 'Media' },
+  { to: '/sponsors', label: 'Sponsors' },
+  { to: '/contact', label: 'Contact' },
 ]

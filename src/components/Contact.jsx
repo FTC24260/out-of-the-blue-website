@@ -2,7 +2,14 @@ import { useState } from 'react'
 import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react'
 import { CONTACT, TEAM } from '../data/site'
 
-const ROLES = ['Student', 'Parent', 'Sponsor', 'Mentor']
+const ROLES = [
+  'Student',
+  'Parent',
+  'Sponsor',
+  'Mentor',
+  'Other',
+  'Prefer not to say',
+]
 
 const EMPTY = { name: '', email: '', role: '', message: '' }
 
@@ -62,7 +69,7 @@ export default function Contact() {
         email: values.email,
         role: values.role,
         message: values.message,
-        subject: `New message from ${values.name} (${values.role}) — FTC #${TEAM.number}`,
+        subject: `New message from ${values.name} (${values.role}) · FTC #${TEAM.number}`,
         ...(isUrl ? {} : { access_key: endpoint }),
       }
 
@@ -90,14 +97,7 @@ export default function Contact() {
   return (
     <section id="contact" className="section">
       <div className="container-x">
-        <span className="eyebrow">Contact</span>
-        <h2 className="heading">Get in touch</h2>
-        <p className="subheading">
-          Questions about joining, mentoring, or sponsoring? Send us a note —
-          we'd love to hear from you.
-        </p>
-
-        <div className="mt-6 grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-5 lg:grid-cols-2">
           {/* Form */}
           <div className="card">
             {status === 'success' ? (
@@ -115,7 +115,7 @@ export default function Contact() {
                   Message sent!
                 </h3>
                 <p className="mt-2 max-w-sm text-sm text-muted">
-                  Thanks for reaching out — we'll get back to you as soon as we
+                  Thanks for reaching out. We'll get back to you as soon as we
                   can. {!CONTACT.formEndpoint && '(Demo mode: nothing was actually sent.)'}
                 </p>
                 <button

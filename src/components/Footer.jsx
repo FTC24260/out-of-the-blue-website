@@ -1,6 +1,6 @@
 import { MapPin, Instagram, Globe, BarChart3, Trophy } from 'lucide-react'
 import { NAV_LINKS, SOCIALS, TEAM, CONTACT } from '../data/site'
-import { scrollToSection } from '../lib/scroll'
+import { Link } from 'react-router-dom'
 
 const SOCIAL_ICONS = {
   instagram: Instagram,
@@ -65,13 +65,13 @@ export default function Footer() {
           </h3>
           <ul className="mt-3 space-y-2">
             {NAV_LINKS.map((link) => (
-              <li key={link.id}>
-                <button
-                  onClick={() => scrollToSection(link.id)}
+              <li key={link.to}>
+                <Link
+                  to={link.to}
                   className="text-sm transition-colors hover:text-light"
                 >
                   {link.label}
-                </button>
+                </Link>
               </li>
             ))}
           </ul>
@@ -84,20 +84,20 @@ export default function Footer() {
           </h3>
           <ul className="mt-3 space-y-2">
             <li>
-              <button
-                onClick={() => scrollToSection('contact')}
+              <Link
+                to="/contact"
                 className="text-sm transition-colors hover:text-light"
               >
                 Join the team
-              </button>
+              </Link>
             </li>
             <li>
-              <button
-                onClick={() => scrollToSection('sponsors')}
+              <Link
+                to="/sponsors"
                 className="text-sm transition-colors hover:text-light"
               >
                 Sponsor us
-              </button>
+              </Link>
             </li>
             <li>
               <a
