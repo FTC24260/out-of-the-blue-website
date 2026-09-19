@@ -1,0 +1,8 @@
+# Client-side routing fallback.
+#
+# Production is served by Cloudflare Pages, which does NOT read netlify.toml,
+# so the redirect rule there covers Netlify only. Cloudflare currently falls
+# back to index.html implicitly, but that is undocumented behaviour to lean on
+# for /team, /awards and friends. This file is read by both hosts and states
+# the intent explicitly.
+/*  /index.html  200
